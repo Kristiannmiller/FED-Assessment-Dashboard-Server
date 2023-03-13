@@ -9,7 +9,6 @@ router.get('/', (request, response, next) => {
   User.findOne({ email: email })
     .exec()
     .then((doc) => {
-      console.log(doc);
       if (doc) {
         response.status(200).json(doc);
       } else {
@@ -30,13 +29,11 @@ router.post('/', (request, response, next) => {
   user
     .save()
     .then((result) => {
-      console.log(result);
       response.status(200).json({
         user,
       });
     })
     .catch((err) => {
-      console.log(err);
       response.json(500).json({ error: err });
     });
 });
@@ -46,28 +43,12 @@ router.patch('/:userId', (request, response, next) => {
   User.findByIdAndUpdate({ _id: id }, request.body, { new: true })
     .exec()
     .then((res) => {
-      console.log(res);
       response.status(200).json(res);
     })
     .catch((err) => {
-      console.log(err);
       response.status(500).json({
         error: err,
       });
-    });
-});
-
-router.delete('/:userId', (request, response, next) => {
-  const id = request.params.userId;
-  User.deleteOne({ _id: id })
-    .exec()
-    .then((res) => {
-      console.log(res);
-      response.status(200).json(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      response.status(500).json({ error: err });
     });
 });
 

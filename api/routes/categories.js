@@ -8,11 +8,9 @@ router.get('/', (request, response, next) => {
   Category.find()
     .exec()
     .then((docs) => {
-      console.log(docs);
       response.status(200).json(docs);
     })
     .catch((err) => {
-      console.log(err);
       response.status(500).json({ error: err });
     });
 });
@@ -27,14 +25,12 @@ router.post('/', (request, response, next) => {
   category
     .save()
     .then((result) => {
-      console.log(result);
       response.status(200).json({
         message: 'handling POST requests to /categories',
         category: category,
       });
     })
     .catch((err) => {
-      console.log(err);
       response.status(500).json({ error: err });
     });
 });
@@ -44,7 +40,6 @@ router.get('/:catId', (request, response, next) => {
   Category.findById(id)
     .exec()
     .then((doc) => {
-      console.log(doc);
       if (doc) {
         response.status(200).json(doc);
       } else {
@@ -54,7 +49,6 @@ router.get('/:catId', (request, response, next) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       response.status(500).json({ error: err });
     });
 });
@@ -64,11 +58,9 @@ router.patch('/:catId', (request, response, next) => {
   Category.findByIdAndUpdate({ _id: id }, request.body, { new: true })
     .exec()
     .then((res) => {
-      console.log(res);
       response.status(200).json(res);
     })
     .catch((err) => {
-      console.log(err);
       response.status(500).json({
         error: err,
       });
